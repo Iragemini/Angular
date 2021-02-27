@@ -10,7 +10,7 @@ const plugins = [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(), 
     new HtmlWebpackPlugin({
-    template: "./src/index.html",
+        template: "./src/index.html",
     }),    
 ];
 
@@ -26,7 +26,7 @@ module.exports = {
     mode: mode,
     target: target,
     
-    entry: "./src/index.js",
+    entry: "./src/index.tsx",
 
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -52,7 +52,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.jsx?$/,
+                test: /\.ts[x]?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
@@ -64,7 +64,7 @@ module.exports = {
     plugins: plugins,
 
     resolve: {
-        extensions: [".js", ".jsx", ".tsx"],
+        extensions: [".js", ".jsx", ".tsx", ".ts"],
     },
 
     devtool: "source-map",
@@ -72,5 +72,6 @@ module.exports = {
     devServer: {
         contentBase: "./dist",
         hot: true,
+        historyApiFallback: true,
     },
 }
