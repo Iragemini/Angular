@@ -5,6 +5,8 @@ import WallCollision from './util/WallCollision';
 import Paddle from './Paddle';
 import Brick from './Brick';
 import BrickCollision from './util/BrickCollision';
+import PaddleHit from './util/PaddleHit';
+import PlayerStats from './PlayerStats';
 
 let bricks = [];
 
@@ -20,14 +22,18 @@ const Board = () => {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
 
+            paddleProps.y = canvas.height - 30;
+
             // Assign bricks
             let newBrickSet = Brick(2, bricks, canvas, brickObj);
 
             if(newBrickSet && newBrickSet.length > 0) {
                 bricks = newBrickSet;
             }
-
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            PlayerStats(ctx, player, canvas);
 
             bricks.map((brick) => {
                 return brick.draw(ctx);
@@ -35,7 +41,7 @@ const Board = () => {
             
             BallMovement(ctx, ballObj);
 
-            WallCollision(ballObj, canvas);
+            WallCollision(ballObj, canvas, player);
 
             let brickCollision;
 
@@ -55,6 +61,8 @@ const Board = () => {
             }
 
             Paddle(ctx, canvas, paddleProps);
+
+            PaddleHit(ballObj, paddleProps);
 
             requestAnimationFrame(render);
         }
