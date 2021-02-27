@@ -4,10 +4,11 @@ import config from "../config";
 import WallCollision from './util/WallCollision';
 import Paddle from './Paddle';
 import Brick from './Brick';
+import BrickCollision from './util/BrickCollision';
 
 let bricks = [];
 
-let { ballObj, paddleProps, brickObj } = config;
+let { ballObj, paddleProps, brickObj, player } = config;
 
 let x = 0;
 
@@ -35,6 +36,23 @@ const Board = () => {
             BallMovement(ctx, ballObj);
 
             WallCollision(ballObj, canvas);
+
+            let brickCollision;
+
+            for (let i = 0; i < bricks.length; i++) {
+                brickCollision = BrickCollision(ballObj, bricks[i]);
+        
+                if (brickCollision.hit && !bricks[i].broke) {
+                  if (brickCollision.axis === "X") {
+                    ballObj.dx *= -1;
+                    bricks[i].broke = true;
+                  } else if (brickCollision.axis === "Y") {
+                    ballObj.dy *= -1;
+                    bricks[i].broke = true;
+                  }
+                  player.score += 10;
+                }
+            }
 
             Paddle(ctx, canvas, paddleProps);
 
