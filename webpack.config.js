@@ -73,5 +73,7 @@ module.exports = {
         contentBase: "./dist",
         hot: true,
         historyApiFallback: true,
+        public: 'http://localhost:8080',
+        open: true,
     },
 }

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { BallMovement } from './BallMovements';
+import { BallMovement } from './BallMovement';
 import config from "../config";
 import WallCollision from './util/WallCollision';
 import Paddle from './Paddle';
@@ -7,12 +7,15 @@ import Brick from './Brick';
 import BrickCollision from './util/BrickCollision';
 import PaddleHit from './util/PaddleHit';
 import PlayerStats from './PlayerStats';
+import AllBroken from './util/AllBroke';
+import ResetBall from './util/ResetBall';
+import setGame from './util/SetGame';
 
 let bricks = [];
 
 let { ballObj, paddleProps, brickObj, player } = config;
 
-let x = 0;
+setGame();
 
 const Board = () => {
     const canvasRef = useRef(null);
@@ -25,7 +28,7 @@ const Board = () => {
             paddleProps.y = canvas.height - 30;
 
             // Assign bricks
-            let newBrickSet = Brick(2, bricks, canvas, brickObj);
+            let newBrickSet = Brick(player.level, bricks, canvas, brickObj);
 
             if(newBrickSet && newBrickSet.length > 0) {
                 bricks = newBrickSet;
@@ -41,7 +44,18 @@ const Board = () => {
             
             BallMovement(ctx, ballObj);
 
-            WallCollision(ballObj, canvas, player);
+            AllBroken(bricks, player, canvas, ballObj);
+            
+            if (player.lives === 0) {
+                alert("Game over! Press OK to restart");
+                player.lives = 5;
+                player.level = 1;
+                player.score = 0;
+                ResetBall(ballObj, canvas, paddleProps);
+                bricks.length = 0;
+            }
+
+            WallCollision(ballObj, canvas, player, paddleProps);
 
             let brickCollision;
 
@@ -70,13 +84,25 @@ const Board = () => {
     }, []);
 
     return (
-        <canvas 
-            id="canvas" 
-            ref={canvasRef} 
-            onMouseMove={(event) => paddleProps.x = event.clientX - paddleProps.width / 2 -10}
-            height="500px" 
-            width={window.innerWidth - 20} 
-        />
+        <div style={{ textAlign: "center" }}>
+            <canvas
+                id="canvas"
+                ref={canvasRef}
+                onMouseMove={(event) =>
+                (paddleProps.x =
+                    event.clientX -
+                    (window.innerWidth < 900 ? 10 : (window.innerWidth * 20) / 200) -
+                    paddleProps.width / 2 -
+                    10)
+                }
+                height="500"
+                width={
+                window.innerWidth < 900
+                    ? window.innerWidth - 20
+                    : window.innerWidth - (window.innerWidth * 20) / 100
+                }
+            />
+        </div>
     );
 }
 

@@ -23,8 +23,13 @@ export default {
     },
     paddleProps: {
         height: 20,
-        width: 100,
+        width: 400,
         x: 100,
         color: "orange",
+    },
+    paddleWidth: {
+        easy: 400,
+        medium: 250,
+        hard: 100,
     }
 };

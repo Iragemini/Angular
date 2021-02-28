@@ -1,8 +1,13 @@
+import { getLocalStorageItem } from "../components/utils/LocalStorage";
+
 export function BallMovement (ctx, ballObj) {
+    let status = getLocalStorageItem("gameStatus");
     let data = new Ball (ballObj.x, ballObj.y, ballObj.rad);
-    data.draw(ctx);
-    ballObj.x += ballObj.dx;
-    ballObj.y += ballObj.dy;
+    if(status === "true") {
+        data.draw(ctx);
+        ballObj.x += ballObj.dx;
+        ballObj.y += ballObj.dy;
+    }
 }
 
 class Ball {
@@ -17,7 +22,7 @@ class Ball {
         ctx.fillStyle = "skyblue";
         ctx.arc(this.x, this.y, this.rad, 0, 2 * Math.PI);
         ctx.strokeStyle = "black";
-        ctx.strokeWidth = 4;
+        ctx.lineWidth = 2;
         ctx.fill();
         ctx.stroke();
     }

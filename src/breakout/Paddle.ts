@@ -1,4 +1,10 @@
+import { getLocalStorageItem } from "../components/utils/LocalStorage";
+
 export default (ctx, canvas, paddleProps) => {
+
+    let gameLevel = getLocalStorageItem("gameLevel");
+    let deltaWidth = 0;
+    
     class Paddle {
         constructor(x) {
             this.x = x;
@@ -14,6 +20,7 @@ export default (ctx, canvas, paddleProps) => {
             ctx.strokeStyle = this.broke ? "white" : "red";
             ctx.lineWidth = 1;
             ctx.fillStyle = this.broke ? "white" : this.colors[1];
+            ctx.shadowBlur = 0;
             ctx.shadowColor = "blue";
             ctx.strokeRect(this.x, this.y, this.width, this.height);
             ctx.fill();

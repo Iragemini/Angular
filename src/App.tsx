@@ -1,11 +1,13 @@
+import Header from './components/Header';
 import React from 'react';
-import Breakout from './breakout/index'
+import Board from './breakout/Board';
 import './styles/index.scss';
 
 const App = () => {
   return (
     <div>
-      <Breakout/>
+      <Header/>
+      <Board/>
     </div>
   );
 };
