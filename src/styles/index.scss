@@ -1,2 +1,8 @@
-@use "global";
+@import 'base/base';
+@import 'base/typography';
 
+@import 'components/canvas';
+@import 'components/footer';
+@import 'components/header';
+
+@import 'layout/app';

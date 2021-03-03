@@ -1,109 +1,109 @@
 import React, { useRef, useEffect } from 'react';
-import { BallMovement } from './BallMovement';
-import config from "../config";
-import WallCollision from './util/WallCollision';
+import ballMovement from './BallMovement';
+import config from '../config';
+import wallCollision from './util/WallCollision';
 import Paddle from './Paddle';
-import Brick from './Brick';
-import BrickCollision from './util/BrickCollision';
-import PaddleHit from './util/PaddleHit';
-import PlayerStats from './PlayerStats';
-import AllBroken from './util/AllBroke';
-import ResetBall from './util/ResetBall';
+import brick from './Brick';
+import brickCollision from './util/BrickCollision';
+import paddleHit from './util/PaddleHit';
+import playerStats from './PlayerStats';
+import allBroken from './util/AllBroke';
+import resetBall from './util/ResetBall';
 import setGame from './util/SetGame';
+import setLocalStorageItem from '../components/utils/LocalStorage';
+import { mouseMoveHandler, keyPressHandler } from './util/Movement';
 
-let bricks = [];
+let bricks: any = [];
 
-let { ballObj, paddleProps, brickObj, player } = config;
+const { ballObj, paddleProps, brickObj, player } = config;
 
 setGame();
 
-const Board = () => {
-    const canvasRef = useRef(null);
+const Board: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    useEffect(() => {
-        const render = () => {
-            const canvas = canvasRef.current;
-            const ctx = canvas.getContext('2d');
+  useEffect(() => {
+    const render = () => {
+      const canvas: HTMLCanvasElement = canvasRef.current;
+      const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
-            paddleProps.y = canvas.height - 30;
+      paddleProps.y = canvas.height - 30;
 
-            // Assign bricks
-            let newBrickSet = Brick(player.level, bricks, canvas, brickObj);
+      // Assign bricks
+      const newBrickSet = brick(player.level, bricks, canvas, brickObj);
 
-            if(newBrickSet && newBrickSet.length > 0) {
-                bricks = newBrickSet;
-            }
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            PlayerStats(ctx, player, canvas);
+      if (newBrickSet && newBrickSet.length > 0) {
+        bricks = newBrickSet;
+      }
 
-            bricks.map((brick) => {
-                return brick.draw(ctx);
-            });
-            
-            BallMovement(ctx, ballObj);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            AllBroken(bricks, player, canvas, ballObj);
-            
-            if (player.lives === 0) {
-                alert("Game over! Press OK to restart");
-                player.lives = 5;
-                player.level = 1;
-                player.score = 0;
-                ResetBall(ballObj, canvas, paddleProps);
-                bricks.length = 0;
-            }
+      playerStats(ctx, player, canvas);
 
-            WallCollision(ballObj, canvas, player, paddleProps);
+      bricks.map((brick) => {
+        return brick.draw(ctx);
+      });
 
-            let brickCollision;
+      ballMovement(ctx, ballObj);
 
-            for (let i = 0; i < bricks.length; i++) {
-                brickCollision = BrickCollision(ballObj, bricks[i]);
-        
-                if (brickCollision.hit && !bricks[i].broke) {
-                  if (brickCollision.axis === "X") {
-                    ballObj.dx *= -1;
-                    bricks[i].broke = true;
-                  } else if (brickCollision.axis === "Y") {
-                    ballObj.dy *= -1;
-                    bricks[i].broke = true;
-                  }
-                  player.score += 10;
-                }
-            }
+      allBroken(bricks, player, ballObj);
 
-            Paddle(ctx, canvas, paddleProps);
-
-            PaddleHit(ballObj, paddleProps);
-
-            requestAnimationFrame(render);
+      if (player.lives === 0) {
+        setLocalStorageItem('score', { name: player.name, score: player.score }, 'arr');
+        if (confirm('Game over! Press OK to start new Game')) {
+          setLocalStorageItem('gameStatus', 'true');
+        } else {
+          setLocalStorageItem('gameStatus', 'false');
         }
-        render();
-    }, []);
+        player.lives = 5;
+        player.level = 1;
+        player.score = 0;
+        resetBall(ballObj, paddleProps);
+        bricks.length = 0;
+        brickObj.y = 80;
+      }
 
-    return (
-        <div style={{ textAlign: "center" }}>
-            <canvas
-                id="canvas"
-                ref={canvasRef}
-                onMouseMove={(event) =>
-                (paddleProps.x =
-                    event.clientX -
-                    (window.innerWidth < 900 ? 10 : (window.innerWidth * 20) / 200) -
-                    paddleProps.width / 2 -
-                    10)
-                }
-                height="500"
-                width={
-                window.innerWidth < 900
-                    ? window.innerWidth - 20
-                    : window.innerWidth - (window.innerWidth * 20) / 100
-                }
-            />
-        </div>
-    );
-}
+      wallCollision(ballObj, canvas, player, paddleProps);
+
+      let brickCollisions;
+
+      for (let i = 0; i < bricks.length; i++) {
+        brickCollisions = brickCollision(ballObj, bricks[i]);
+
+        if (brickCollisions.hit && !bricks[i].broke) {
+          if (brickCollisions.axis === 'X') {
+            ballObj.dx *= -1;
+            bricks[i].broke = true;
+          } else if (brickCollisions.axis === 'Y') {
+            ballObj.dy *= -1;
+            bricks[i].broke = true;
+          }
+          player.score += 10;
+        }
+      }
+
+      Paddle(ctx, canvas, paddleProps);
+
+      paddleHit(ballObj, paddleProps);
+
+      requestAnimationFrame(render);
+    };
+    render();
+  }, []);
+
+  return (
+    <div className="row">
+      <canvas
+        tabIndex={1}
+        id="canvas"
+        ref={canvasRef}
+        onMouseMove={(event) => mouseMoveHandler(event, canvasRef)}
+        onKeyDown={(event) => keyPressHandler(event, canvasRef)}
+        height="500"
+        width="500"
+      />
+    </div>
+  );
+};
 
 export default Board;

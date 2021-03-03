@@ -1,8 +1,9 @@
-import setLocalStorageItem from '../../components/utils/LocalStorage';
+import initialSet from '../../components/utils/LocalStorage';
 
-const setGame = () => {
-    setLocalStorageItem("gameStatus", "false");
-    setLocalStorageItem("gameLevel", "easy");
-}
+const setGame = (): void => {
+  initialSet('gameStatus', 'false');
+  initialSet('gameLevel', 'easy');
+  initialSet('score', JSON.stringify([]));
+};
 
 export default setGame;

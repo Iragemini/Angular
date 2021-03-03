@@ -1,12 +1,18 @@
 import React from 'react';
 
-const StartButton = ({toggleStart, text}) => {
+type StartProps = {
+  toggleStart: Function;
+  text: string;
+};
 
-    return (
-        <div>
-            <button onClick={() => toggleStart()}>{text}</button>
-        </div>
-    );
-}
+const StartButton: React.FC = ({ toggleStart, text }: StartProps) => {
+  return (
+    <div>
+      <button className="btn waves-effect waves-light" onClick={() => toggleStart()}>
+        {text}
+      </button>
+    </div>
+  );
+};
 
 export default StartButton;

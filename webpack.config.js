@@ -1,4 +1,5 @@
 const path = require('path');
+const SRC = path.resolve(__dirname, 'node_modules');
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -30,11 +31,12 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, "dist"),
-        assetModuleFilename: "images/[hash][ext][query]",
+        assetModuleFilename: "assets/[hash][ext][query]",
     },
 
     module: {
         rules: [
+
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
                 type: "asset/resource",
@@ -50,6 +52,14 @@ module.exports = {
                     "postcss-loader", 
                     "sass-loader",
                 ],
+            },
+            {
+                test: /\.mp3$/i,
+                loader: 'file-loader',
+                options: {
+                  name: '[name].[ext]',
+                  outputPath: './assets/audio/',
+                },
             },
             {
                 test: /\.ts[x]?$/,
