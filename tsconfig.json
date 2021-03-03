@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "module": "commonjs",
+        "target": "es2017",
+        "noEmit": true,
+        "jsx": "react",
+        "skipLibCheck": true,
+        "rootDir": "./src",
+        "baseUrl": "./src",
+    },
+    "include": ["src/**/*"]
+}
