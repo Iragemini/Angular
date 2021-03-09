@@ -21,7 +21,7 @@ class Ball {
     this.rad = rad;
   }
 
-  draw(ctx) {
+  draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.fillStyle = 'white';
     ctx.arc(this.x, this.y, this.rad, 0, 2 * Math.PI);
