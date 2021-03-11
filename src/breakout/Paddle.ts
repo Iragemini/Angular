@@ -1,4 +1,6 @@
 
+import Colors from '../Colors';
+
 type PaddleProps = {
   height: number,
   width: number,
@@ -6,6 +8,7 @@ type PaddleProps = {
   y: number,
   color: string,
 }
+
 const paddleFactory = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, paddleProps: PaddleProps) => {
   const paddle = new Paddle(ctx, canvas, paddleProps);
   paddle.move();
@@ -32,17 +35,17 @@ class Paddle {
     this.y = canvas.height - 30;
     this.height = 20;
     this.width = paddleProps.width;
-    this.colors = ['#336633', '#336666'];
+    this.colors = [Colors.DarkGrayishGreen, Colors.DarkCyanGray];
   }
   move() {
     this.ctx.beginPath();
     this.ctx.rect(this.x, this.y, this.width, this.height);
-    this.ctx.fillStyle = this.broke ? 'white' : this.colors[1];
-    this.ctx.strokeStyle = this.broke ? 'white' : '#336633';
+    this.ctx.fillStyle = this.broke ? Colors.White : this.colors[1];
+    this.ctx.strokeStyle = this.broke ? Colors.White : Colors.DarkCyanGray;
     this.ctx.lineWidth = 1;
-    this.ctx.fillStyle = this.broke ? 'white' : this.colors[1];
+    this.ctx.fillStyle = this.broke ? Colors.White : this.colors[1];
     this.ctx.shadowBlur = 0;
-    this.ctx.shadowColor = 'blue';
+    this.ctx.shadowColor = Colors.Blue;
     this.ctx.strokeRect(this.x, this.y, this.width, this.height);
     this.ctx.fill();
   }

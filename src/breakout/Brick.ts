@@ -1,4 +1,5 @@
 
+import Colors from '../Colors';
 
 type BrickParams = {
   x: number;
@@ -6,7 +7,7 @@ type BrickParams = {
   width: number;
   height: number;
   colors: string[];
-};
+}
 
 const brickFactory = (level: number, bricks: SingleBrick[], canvas: HTMLCanvasElement, brick: BrickParams) => {
   brick.width = canvas.width / 5 - 1;
@@ -57,9 +58,9 @@ class SingleBrick {
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = this.broke ? 'rgba(19, 73, 89, 0)' : this.colors[1];
+    ctx.fillStyle = this.broke ? Colors.DuskyAzure : this.colors[1];
     ctx.lineWidth = 5;
-    ctx.strokeStyle = this.broke ? 'rgba(19, 73, 89, 0)' : 'transparent';
+    ctx.strokeStyle = this.broke ? Colors.DuskyAzure : Colors.Transparent;
     ctx.fill();
     ctx.strokeRect(this.x, this.y, this.width, this.height);
   }

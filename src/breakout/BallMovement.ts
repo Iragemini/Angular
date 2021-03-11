@@ -1,4 +1,5 @@
 import { getLocalStorageItem } from '../components/utils/LocalStorage';
+import Colors from '../Colors';
 
 type BallObj = {
   x: number,
@@ -32,9 +33,9 @@ class Ball {
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = Colors.White;
     ctx.arc(this.x, this.y, this.rad, 0, 2 * Math.PI);
-    ctx.strokeStyle = '#336633';
+    ctx.strokeStyle = Colors.DarkGrayishGreen;
     ctx.lineWidth = 2;
     ctx.fill();
     ctx.stroke();
