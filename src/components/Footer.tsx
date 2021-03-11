@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
-  return (
+const Footer: React.FC = () => (
     <div className="row">
       <div className="footer">
         <h6>©2021</h6>
@@ -13,7 +12,6 @@ const Footer: React.FC = () => {
         </a>
       </div>
     </div>
-  );
-};
+)
 
 export default Footer;

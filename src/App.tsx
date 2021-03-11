@@ -7,8 +7,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min';
 import './styles/index.scss';
 
-const App = () => {
-  return (
+const App = () => (
     <div className="container">
       <div className="app">
         <Header />
@@ -16,6 +15,6 @@ const App = () => {
         <Footer />
       </div>
     </div>
-  );
-};
+)
+
 export default App;
