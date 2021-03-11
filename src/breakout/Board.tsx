@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import ballMovement from './BallMovement';
 import config from '../config';
 import wallCollision from './util/WallCollision';
-import paddle from './Paddle';
+import paddleFactory from './Paddle';
 import brickFactory, { SingleBrick } from './Brick';
 import brickCollision from './util/BrickCollision';
 import paddleHit from './util/PaddleHit';
@@ -82,7 +82,7 @@ const Board: React.FC = () => {
         }
       }
 
-      paddle(ctx, canvas, paddleProps);
+      paddleFactory(ctx, canvas, paddleProps);
 
       paddleHit(ballObj, paddleProps);
 
