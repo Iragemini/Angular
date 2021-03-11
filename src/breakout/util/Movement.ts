@@ -22,7 +22,6 @@ const keyPressHandler = (e: KeyboardEvent, canvasRef): void => {
       paddleProps.x -= 35;
     }
   }
-  return;
 };
 
 export { mouseMoveHandler, keyPressHandler };
