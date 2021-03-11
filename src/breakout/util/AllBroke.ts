@@ -1,7 +1,24 @@
+import { SingleBrick } from 'breakout/Brick';
 import config from '../../config';
 import resetBall from './ResetBall';
 
-const allBroken = (bricks, player, ballObj): void => {
+type Player = {
+  name: string,
+  lives: number,
+  score: number,
+  level: number,
+}
+
+type BallObj = {
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  rad: number,
+  speed: number,
+}
+
+const allBroken = (bricks: SingleBrick[], player: Player, ballObj: BallObj): void => {
   const { brickObj, paddleProps } = config;
   let total = 0;
   for (let i = 0; i < bricks.length; i = i + 1) {

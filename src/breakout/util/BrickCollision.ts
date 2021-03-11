@@ -1,4 +1,13 @@
-export default function brickCollision(circle, rect) {
+type BallObj = {
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  rad: number,
+  speed: number,
+}
+
+export default function brickCollision(circle: BallObj, rect) {
   const distX = Math.abs(circle.x - rect.x - rect.width / 2);
   const distY = Math.abs(circle.y - rect.y - rect.height / 2);
 

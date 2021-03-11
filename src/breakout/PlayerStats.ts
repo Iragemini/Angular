@@ -3,7 +3,14 @@ const X_POS_LINE1: number = 30;
 const X_POS_LINE2: number = 60;
 const START_POS: number = 20;
 
-export default function playerStats(ctx, player, canvas): void {
+type Player = {
+  name: string,
+  lives: number,
+  score: number,
+  level: number,
+}
+
+export default function playerStats(ctx: CanvasRenderingContext2D, player: Player, canvas: HTMLCanvasElement): void {
   const begin = START_POS;
   // Player
   ctx.font = '20px Arial';

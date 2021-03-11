@@ -1,6 +1,15 @@
 import { getLocalStorageItem } from '../components/utils/LocalStorage';
 
-const ballMovement = (ctx, ballObj) => {
+type BallObj = {
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  rad: number,
+  speed: number,
+}
+
+const ballMovement = (ctx: CanvasRenderingContext2D, ballObj: BallObj) => {
   const status = getLocalStorageItem('gameStatus');
   const data = new Ball(ballObj.x, ballObj.y, ballObj.rad);
   if (status === 'true') {
