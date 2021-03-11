@@ -1,14 +1,16 @@
+
+
 type BrickParams = {
   x: number;
   y: number;
   width: number;
   height: number;
-  colors: any;
+  colors: string[];
 };
 
-const brick = (level: number, bricks: [], canvas: HTMLCanvasElement, brick: BrickParams) => {
+const brickFactory = (level: number, bricks: SingleBrick[], canvas: HTMLCanvasElement, brick: BrickParams) => {
   brick.width = canvas.width / 5 - 1;
-  const newbricks = [];
+  const newBricks: SingleBrick[] = [];
   if (!bricks) {
     return [];
   }
@@ -24,7 +26,7 @@ const brick = (level: number, bricks: [], canvas: HTMLCanvasElement, brick: Bric
       brick.height,
       brick.colors
     );
-    newbricks.push(newBrick);
+    newBricks.push(newBrick);
 
     brick.x += brick.width + 1;
     if (brick.x + brick.width >= canvas.width) {
@@ -32,7 +34,7 @@ const brick = (level: number, bricks: [], canvas: HTMLCanvasElement, brick: Bric
       brick.y += brick.height + 1;
     }
   }
-  return newbricks;
+  return newBricks;
 };
 
 class SingleBrick {
@@ -40,10 +42,10 @@ class SingleBrick {
   private y: number;
   private width: number;
   private height: number;
-  private colors: String[];
-  private broke: boolean;
+  private colors: string[];
+  public broke: boolean;
 
-  constructor(x: number, y: number, width: number, height: number, colors: []) {
+  constructor(x: number, y: number, width: number, height: number, colors: string[]) {
     this.x = x - width;
     this.y = y;
     this.width = width;
@@ -52,7 +54,7 @@ class SingleBrick {
     this.broke = false;
   }
 
-  draw(ctx) {
+  draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
     ctx.fillStyle = this.broke ? 'rgba(19, 73, 89, 0)' : this.colors[1];
@@ -63,4 +65,5 @@ class SingleBrick {
   }
 }
 
-export default brick;
+export default brickFactory;
+export {SingleBrick};

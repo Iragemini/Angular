@@ -2,8 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import ballMovement from './BallMovement';
 import config from '../config';
 import wallCollision from './util/WallCollision';
-import Paddle from './Paddle';
-import brick from './Brick';
+import paddle from './Paddle';
+import brickFactory, { SingleBrick } from './Brick';
 import brickCollision from './util/BrickCollision';
 import paddleHit from './util/PaddleHit';
 import playerStats from './PlayerStats';
@@ -13,7 +13,7 @@ import setGame from './util/SetGame';
 import setLocalStorageItem from '../components/utils/LocalStorage';
 import { mouseMoveHandler, keyPressHandler } from './util/Movement';
 
-let bricks: any = [];
+let bricks: SingleBrick[] = [];
 
 const { ballObj, paddleProps, brickObj, player } = config;
 
@@ -24,13 +24,13 @@ const Board: React.FC = () => {
 
   useEffect(() => {
     const render = () => {
-      const canvas: HTMLCanvasElement = canvasRef.current;
-      const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+      const canvas = canvasRef.current as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
       paddleProps.y = canvas.height - 30;
 
       // Assign bricks
-      const newBrickSet = brick(player.level, bricks, canvas, brickObj);
+      const newBrickSet = brickFactory(player.level, bricks, canvas, brickObj);
 
       if (newBrickSet && newBrickSet.length > 0) {
         bricks = newBrickSet;
@@ -40,8 +40,8 @@ const Board: React.FC = () => {
 
       playerStats(ctx, player, canvas);
 
-      bricks.map((brick) => {
-        return brick.draw(ctx);
+      bricks.forEach((brickItem) => {
+        brickItem.draw(ctx);
       });
 
       ballMovement(ctx, ballObj);
@@ -82,7 +82,7 @@ const Board: React.FC = () => {
         }
       }
 
-      Paddle(ctx, canvas, paddleProps);
+      paddle(ctx, canvas, paddleProps);
 
       paddleHit(ballObj, paddleProps);
 
