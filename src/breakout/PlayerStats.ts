@@ -1,4 +1,4 @@
-import Colors from '../Colors';
+import {Colors} from '../Colors';
 
 const Y_POS_DELTA: number = 140;
 const X_POS_LINE1: number = 30;

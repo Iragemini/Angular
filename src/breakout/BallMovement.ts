@@ -1,5 +1,5 @@
 import { getLocalStorageItem } from '../components/utils/LocalStorage';
-import Colors from '../Colors';
+import {Colors} from '../Colors';
 
 type BallObj = {
   x: number,

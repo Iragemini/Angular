@@ -1,5 +1,5 @@
 
-import Colors from '../Colors';
+import {Colors} from '../Colors';
 
 type PaddleProps = {
   height: number,
