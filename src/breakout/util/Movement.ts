@@ -1,8 +1,9 @@
+import React from 'react';
 import config from '../../config';
 
 const { paddleProps } = config;
 
-const mouseMoveHandler = (e: MouseEvent, canvasRef): void => {
+const mouseMoveHandler = (e: MouseEvent, canvasRef: React.RefObject<HTMLCanvasElement>): void => {
   const canvas: HTMLCanvasElement = canvasRef.current;
   canvas.focus();
   const relativeX = e.clientX - canvas.offsetLeft;
@@ -11,7 +12,7 @@ const mouseMoveHandler = (e: MouseEvent, canvasRef): void => {
   }
 };
 
-const keyPressHandler = (e: KeyboardEvent, canvasRef): void => {
+const keyPressHandler = (e: KeyboardEvent, canvasRef: React.RefObject<HTMLCanvasElement>): void => {
   const canvas: HTMLCanvasElement = canvasRef.current;
   if (e.code == 'ArrowRight') {
     if (paddleProps.x < canvas.width - paddleProps.width) {
@@ -22,7 +23,6 @@ const keyPressHandler = (e: KeyboardEvent, canvasRef): void => {
       paddleProps.x -= 35;
     }
   }
-  return;
 };
 
 export { mouseMoveHandler, keyPressHandler };

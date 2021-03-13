@@ -1,4 +1,21 @@
-export default function paddleHit(ballObj, paddleProps): void {
+
+type BallObj = {
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  rad: number,
+  speed: number,
+}
+
+type PaddleProps = {
+  height: number,
+  width: number,
+  x: number,
+  y: number,
+}
+
+export default function paddleHit(ballObj: BallObj, paddleProps: PaddleProps): void {
   if (
     ballObj.x < paddleProps.x + paddleProps.width &&
     ballObj.x > paddleProps.x &&

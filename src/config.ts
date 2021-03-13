@@ -13,7 +13,6 @@ export default {
     width: 800 / 10 - 1,
     height: 20,
     density: 2,
-    colors: ['blue', '#336633'],
   },
   player: {
     name: 'Player',
@@ -26,7 +25,6 @@ export default {
     width: 400,
     x: 100,
     y: 100,
-    color: '#336666',
   },
   /* % of paddleProps.width*/
   paddleWidth: {

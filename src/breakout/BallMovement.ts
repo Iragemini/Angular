@@ -1,6 +1,16 @@
 import { getLocalStorageItem } from '../components/utils/LocalStorage';
+import {Colors} from '../Colors';
 
-const ballMovement = (ctx, ballObj) => {
+type BallObj = {
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  rad: number,
+  speed: number,
+}
+
+const ballMovement = (ctx: CanvasRenderingContext2D, ballObj: BallObj) => {
   const status = getLocalStorageItem('gameStatus');
   const data = new Ball(ballObj.x, ballObj.y, ballObj.rad);
   if (status === 'true') {
@@ -21,11 +31,11 @@ class Ball {
     this.rad = rad;
   }
 
-  draw(ctx) {
+  draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = Colors.White;
     ctx.arc(this.x, this.y, this.rad, 0, 2 * Math.PI);
-    ctx.strokeStyle = '#336633';
+    ctx.strokeStyle = Colors.DarkGrayishGreen;
     ctx.lineWidth = 2;
     ctx.fill();
     ctx.stroke();

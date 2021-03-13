@@ -1,4 +1,26 @@
-export default function wallCollision(ballObj, canvas, player, paddleProps): void {
+type BallObj = {
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  rad: number,
+  speed: number,
+}
+
+type PaddleProps = {
+  height: number,
+  width: number,
+  x: number,
+  y: number,
+}
+type Player = {
+  name: string,
+  lives: number,
+  score: number,
+  level: number,
+}
+
+export default function wallCollision(ballObj: BallObj, canvas: HTMLCanvasElement, player: Player, paddleProps: PaddleProps): void {
   if (ballObj.y + ballObj.rad >= canvas.height) {
     player.lives--;
     ballObj.x = paddleProps.x;
