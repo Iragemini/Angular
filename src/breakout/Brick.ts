@@ -6,7 +6,6 @@ type BrickParams = {
   y: number;
   width: number;
   height: number;
-  colors: string[];
 }
 
 const brickFactory = (level: number, bricks: SingleBrick[], canvas: HTMLCanvasElement, brick: BrickParams) => {
@@ -24,8 +23,7 @@ const brickFactory = (level: number, bricks: SingleBrick[], canvas: HTMLCanvasEl
       brick.x + brick.width,
       brick.y,
       brick.width,
-      brick.height,
-      brick.colors
+      brick.height
     );
     newBricks.push(newBrick);
 
@@ -43,22 +41,20 @@ class SingleBrick {
   private y: number;
   private width: number;
   private height: number;
-  private colors: string[];
   public broke: boolean;
 
-  constructor(x: number, y: number, width: number, height: number, colors: string[]) {
+  constructor(x: number, y: number, width: number, height: number) {
     this.x = x - width;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.colors = colors;
     this.broke = false;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = this.broke ? Colors.DuskyAzure : this.colors[1];
+    ctx.fillStyle = this.broke ? Colors.DuskyAzure : Colors.DarkGrayishGreen;
     ctx.lineWidth = 5;
     ctx.strokeStyle = this.broke ? Colors.DuskyAzure : Colors.Transparent;
     ctx.fill();

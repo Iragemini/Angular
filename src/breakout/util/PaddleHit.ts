@@ -13,7 +13,6 @@ type PaddleProps = {
   width: number,
   x: number,
   y: number,
-  color: string,
 }
 
 export default function paddleHit(ballObj: BallObj, paddleProps: PaddleProps): void {

@@ -12,7 +12,6 @@ type PaddleProps = {
   width: number,
   x: number,
   y: number,
-  color: string,
 }
 type Player = {
   name: string,

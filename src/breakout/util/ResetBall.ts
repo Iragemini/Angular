@@ -12,7 +12,6 @@ type PaddleProps = {
   width: number,
   x: number,
   y: number,
-  color: string,
 }
 const resetBall = (ballObj: BallObj, paddleProps: PaddleProps): void => {
   ballObj.x = paddleProps.x;

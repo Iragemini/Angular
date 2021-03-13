@@ -5,8 +5,7 @@ type PaddleProps = {
   height: number,
   width: number,
   x: number,
-  y: number,
-  color: string,
+  y: number
 }
 
 const paddleFactory = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, paddleProps: PaddleProps) => {
@@ -21,7 +20,7 @@ class Paddle {
   private y: number;
   private height: number;
   private width: number;
-  private colors: string[];
+  private colors: Colors[];
   private broke: string;
   private ctx: CanvasRenderingContext2D;
   private paddleProps: PaddleProps; 
