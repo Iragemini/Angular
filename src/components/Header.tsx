@@ -31,12 +31,12 @@ const Header: React.FC = () => {
     play();
     if (status === 'false') {
       setStatus('true');
-      showToast('Start!', 3000);
+      showToast('Start!', 1000);
     } else {
       setStatus('false');
-      showToast('Pause!', 3000);
+      showToast('Pause!', 1000);
     }
-  });
+  }, [status]);
   const changeLevel = (event) => {
     setLevel(event.target.value);
     setStatus('false');
@@ -61,7 +61,7 @@ const Header: React.FC = () => {
       toggleStart();
     };
     enterStart();
-  }, [enterPress]);
+  }, [enterPress ]);
 
   useEffect(() => {
     play();
@@ -80,7 +80,7 @@ const Header: React.FC = () => {
     } else {
       paddleProps.width = (initialWidth * paddleWidth.hard) / 100;
     }
-  }, [status, level]);
+  }, [status, level ]);
 
   return (
     <div className="row">
